@@ -1,0 +1,76 @@
+package com.stackroute.qna.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.stackroute.qna.model.CommentsModel;
+import com.stackroute.qna.model.QuestionModel;
+import com.stackroute.qna.model.TopicModel;
+import com.stackroute.qna.services.QnaService;
+
+@RestController
+@CrossOrigin(origins = "http://localhost:4201")
+@RequestMapping("/api/v1/qnaservice")
+public class QnaController {
+	
+	@Autowired
+	private QnaService qnaService;
+	
+	@PostMapping("/qna/topic")
+	public ResponseEntity<?> saveTopic(@RequestBody TopicModel userDetails) {
+		try {
+			TopicModel savedDetails = qnaService.saveTopicDetails(userDetails);
+			return new ResponseEntity<Object>(savedDetails, HttpStatus.CREATED);
+		} catch (Exception e) {
+			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.CONFLICT);
+		}
+	}
+	
+	@PostMapping("/qna/question")
+	public ResponseEntity<?> saveQuestion(@RequestBody TopicModel userDetails) {
+		try {
+			TopicModel savedDetails = qnaService.saveQuestions(userDetails);
+			return new ResponseEntity<Object>(savedDetails, HttpStatus.CREATED);
+		} catch (Exception e) {
+			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.CONFLICT);
+		}
+	}
+	
+	@PostMapping("/qna/comment")
+	public ResponseEntity<?> saveComment(@RequestBody TopicModel userDetails) {
+		try {
+			TopicModel savedDetails = qnaService.saveComments(userDetails);
+			return new ResponseEntity<Object>(savedDetails, HttpStatus.CREATED);
+		} catch (Exception e) {
+			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.CONFLICT);
+		}
+	}
+	
+	@PostMapping("/qna/getquestions")
+	public ResponseEntity<?> getquestions(@RequestBody TopicModel userDetails) {
+		try {
+			List<QuestionModel> questions = qnaService.getQuestions(userDetails);
+			return new ResponseEntity<List<QuestionModel>>(questions, HttpStatus.CREATED);
+		} catch (Exception e) {
+			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.CONFLICT);
+		}
+	}
+	
+	@PostMapping("/qna/getcomments")
+	public ResponseEntity<?> getcomments(@RequestBody TopicModel userDetails) {
+		try {
+			List<CommentsModel> comments = qnaService.getComments(userDetails);
+			return new ResponseEntity<List<CommentsModel>>(comments, HttpStatus.CREATED);
+		} catch (Exception e) {
+			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.CONFLICT);
+		}
+	}
+}

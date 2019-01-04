@@ -1,0 +1,21 @@
+package com.stackroute.qnatest.controller;
+
+import org.junit.Before;
+import org.mockito.MockitoAnnotations;
+
+import com.stackroute.qna.model.TopicModel;
+
+public class QnaControllerTest {
+	
+	private TopicModel topic;
+	
+	@Before
+	public void setUp() {
+		MockitoAnnotations.initMocks(this);
+		topic = new TopicModel(1,"Science",1,1);
+	}
+	
+	public void saveTopicTest() {
+		
+	}
+}

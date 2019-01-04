@@ -1,0 +1,30 @@
+<div class="row">
+  <nav>
+    <button class="btn btn-link" style="COLOR:BLACK" (click)="navigateToTopics()">Back to Topic</button>
+    <button class="btn btn-danger" (click)="onLogOut()">Log Out</button>
+  </nav>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="form-group">
+      <label for="comment" class="float-left">
+        <h4>Post your Questions here:</h4>
+      </label>
+      <textarea class="form-control" rows="2" id="comment" #question></textarea>
+      <button class="btn btn-success btn-md float-right" (click)="onAddQuestionClicked(question.value);question.value=''">Post</button>
+    </div>
+  </div>
+</div>
+<hr>
+<h3>QUESTIONS</h3>
+<br>
+<div class="card-columns" *ngIf="isQuestionsAvailable();else notFound">
+  <div class="card border-dark" *ngFor="let question of questions">
+    <div class="card-body">
+      <h5 class="card-title">{{question.question}}</h5>
+      <button class="btn btn-primary" (click)="viewComments(question)">View Comments</button>
+      <button class="btn btn-danger" (click)="delete(question)">Delete</button>
+    </div>
+  </div>
+</div>
+<ng-template #notFound>No questions Posted yet... Post a question to continue...</ng-template>

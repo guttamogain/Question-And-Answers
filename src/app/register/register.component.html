@@ -1,0 +1,80 @@
+<!-- <div class="container col-md-6 col-md-offset-6">
+  <app-confirmation></app-confirmation>
+  <div class="container card border-dark">
+    <h3 class="text-center">Register</h3>
+    <div class="form-group">
+      <label class="float-left">First Name</label>
+      <input type="text" class="form-control" name="firstName" [(ngModel)]="firstName" required />
+      <div [hidden]="!isFirstNameMissing" class="help-block text-danger float-left">First Name is required</div>
+    </div>
+
+    <div class="form-group">
+      <label class="float-left">Last Name</label>
+      <input type="text" class="form-control" name="lastName" [(ngModel)]="lastName" required />
+      <div [hidden]="!isLastNameMissing" class="help-block text-danger float-left">Last Name is required</div>
+    </div>
+
+    <div class="form-group">
+      <label class="float-left">Email</label>
+      <input type="text" class="form-control" name="email" [(ngModel)]="email" required />
+      <div [hidden]="!isEmailMissing" class="help-block text-danger float-left">Email is required</div>
+    </div>
+
+    <div class="form-group">
+      <label class="float-left">Password</label>
+      <input type="password" class="form-control" name="password" [(ngModel)]="password" required />
+      <div [hidden]="!isPasswordMissing" class="help-block text-danger float-left">Password is required</div>
+    </div>
+
+    <div class="form-group">
+      <label class="float-left">Confirm Password</label>
+      <input type="password" class="form-control" name="confirmPassword" [(ngModel)]="confirmPassword" required />
+      <div [hidden]="!isConfirmPasswordMissing" class="help-block text-danger float-left">Password can't be empty</div>
+    </div>
+
+    <div class="form-group">
+      <button id="reg-button" class="btn btn-sm btn-sucess float-left" (click)="register(firstName,lastName,email,password,confirmPassword)">REGISTER</button>
+      <a [routerLink]="['/login']" id="login-button" class="btn btn-link float-left">Log in</a>
+    </div>
+  </div>
+</div> -->
+
+
+
+
+
+<div class="container col-md-6 col-md-offset-6">
+  <div class="container card border-dark"><br>
+    <h3 class="text-center">REGISTER</h3>
+    <hr>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label class="float-left">First Name</label>
+        <input formControlName="firstName" class="form-control">
+        <div *ngIf="f.firstName.errors?.required && formSubmitted" class="help-block text-danger float-left">First Name
+          is required</div><br>
+        <label class="float-left">Last Name</label>
+        <input formControlName="lastName" class="form-control">
+        <div *ngIf="f.lastName.errors?.required && formSubmitted" class="help-block text-danger float-left">Last Name
+          is required</div><br>
+        <label class="float-left">Email</label>
+        <input formControlName="email" class="form-control">
+        <div *ngIf="f.email.errors?.required && formSubmitted" class="help-block text-danger float-left">Email is
+          required</div>
+        <div *ngIf="(f.email.errors?.email && !f.email.errors?.required) && formSubmitted" class="help-block text-danger float-left">Email
+          is invalid</div><br>
+        <label class="float-left">Password</label>
+        <input type="password" formControlName="password" class="form-control">
+        <div *ngIf="f.password.errors?.required && formSubmitted" class="help-block text-danger float-left">Password is
+          required</div><br>
+        <label class="float-left">Confirm Password</label>
+        <input type="password" class="form-control" (input)="onConfirmPasswordChange()" [(ngModel)]="confirmPassword"
+          [ngModelOptions]="{standalone: true}">
+        <div *ngIf="f.password.errors?.password && formSubmitted" class="help-block text-danger float-left">Password
+          Not Matching</div><br>
+        <button type="submit" class="btn btn-primary float-left">REGISTER</button>
+        <a [routerLink]="['/login']" class="btn btn-link float-left">Log in</a><br>
+      </div>
+    </form>
+  </div>
+</div>

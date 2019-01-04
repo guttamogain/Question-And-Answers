@@ -1,0 +1,24 @@
+package com.stackroute.qna.services;
+
+import java.util.List;
+
+import com.stackroute.qna.model.CommentsModel;
+import com.stackroute.qna.model.QuestionModel;
+import com.stackroute.qna.model.TopicModel;
+
+public interface QnaService {
+
+	List<TopicModel> saveTopicDetails(TopicModel user);
+	
+	boolean saveQuestions(TopicModel user);
+	
+	List<TopicModel> saveComments(TopicModel user);
+	
+	List<QuestionModel> getQuestions(TopicModel user);
+	
+	List<CommentsModel> getComments(TopicModel user);
+	
+	boolean deleteComment(int id);
+	
+	boolean deleteQuestion(int id);
+}

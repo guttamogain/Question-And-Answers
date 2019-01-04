@@ -1,0 +1,37 @@
+package com.stackroute.qna.model;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="topic")
+public class TopicModel {
+	
+
+	@Id
+	@Column(name="topic_id")
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int topicId;
+	
+	@Column(name="topic")
+	private String topic;
+	
+	@Column(name="user_id")
+	private int userId;
+	
+	public TopicModel() {
+		
+	}
+	
+	public TopicModel(int topicId,String topic,int userId) {
+		super();
+		this.userId = userId;
+		this.topic = topic;
+		this.topicId = topicId;
+	}
+
+}

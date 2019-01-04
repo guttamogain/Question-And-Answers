@@ -1,0 +1,26 @@
+package com.stackroute.qnatest.service;
+
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+
+import com.stackroute.qna.repository.CommentsRepository;
+import com.stackroute.qna.repository.QuestionRepository;
+import com.stackroute.qna.repository.TopicRepository;
+import com.stackroute.qna.services.QnaServiceImpl;
+
+
+public class QnaServiceTest {
+	
+	@Mock
+	private CommentsRepository commentsRepository;
+	
+	@Mock
+	private TopicRepository topicRepository;
+	
+	@Mock
+	private QuestionRepository questionRepository;
+	
+	@InjectMocks
+	private QnaServiceImpl qnaServiceImpl;
+
+}

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="org.hamcrest.Matchers"/>
+<fullyQualifiedTypeName name="org.mockito.Matchers"/>
+<fullyQualifiedTypeName name="com.stackroute.qna.controller.QnaController"/>
+<fullyQualifiedTypeName name="antlr.collections.List"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="org.junit.Ignore"/>
+<fullyQualifiedTypeName name="com.stackroute.qna.repository.CommentsRepository"/>
+<fullyQualifiedTypeName name="com.stackroute.qna.services.QnaServiceImpl"/>
+<fullyQualifiedTypeName name="com.stackroute.qna.repository.QuestionRepository"/>
+<fullyQualifiedTypeName name="com.stackroute.qna.repository.TopicRepository"/>
+<fullyQualifiedTypeName name="com.stackroute.qna.model.TopicModel"/>
+<fullyQualifiedTypeName name="org.junit.Test"/>
+<fullyQualifiedTypeName name="com.stackroute.qna.model.CommentsModel"/>
+<fullyQualifiedTypeName name="com.stackroute.qna.model.QuestionModel"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+</qualifiedTypeNameHistroy>

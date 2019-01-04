@@ -1,0 +1,41 @@
+package com.stackroute.qnatest.service;
+
+import java.util.Date;
+import java.util.Optional;
+
+import org.junit.Before;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
+import com.jegan.authservice.model.User;
+import com.stackroute.qna.model.TopicModel;
+import com.stackroute.qna.repository.CommentsRepository;
+import com.stackroute.qna.repository.QuestionRepository;
+import com.stackroute.qna.repository.TopicRepository;
+import com.stackroute.qna.services.QnaServiceImpl;
+
+
+public class QnaServiceTest {
+	
+	private TopicModel topic;
+	
+	@Mock
+	private CommentsRepository commentsRepository;
+	
+	@Mock
+	private TopicRepository topicRepository;
+	
+	@Mock
+	private QuestionRepository questionRepository;
+	
+	@InjectMocks
+	private QnaServiceImpl qnaServiceImpl;
+
+	@Before
+	public void setUp() {
+		MockitoAnnotations.initMocks(this);
+		topic = new TopicModel(13323, "Jhon123",1,1);
+	}
+
+}

@@ -1,0 +1,5 @@
+package com.stackroute.qna.repository;
+
+public interface QnaRepository {
+
+}

@@ -1,0 +1,174 @@
+package com.stackroute.qna.services;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.stackroute.exception.QnaException;
+import com.stackroute.qna.model.CommentsModel;
+import com.stackroute.qna.model.QuestionModel;
+import com.stackroute.qna.model.TopicModel;
+import com.stackroute.qna.repository.CommentsRepository;
+import com.stackroute.qna.repository.QuestionRepository;
+import com.stackroute.qna.repository.TopicRepository;
+
+@Service
+public class QnaServiceImpl implements QnaService {
+
+	@Autowired
+	private TopicRepository topicRepository;
+
+	@Autowired
+	private QuestionRepository questionRepository;
+
+	@Autowired
+	private CommentsRepository commentsRepository;
+
+	public QnaServiceImpl(TopicRepository topicRepository, QuestionRepository questionRepository,
+			CommentsRepository commentsRepository) {
+		super();
+		this.topicRepository = topicRepository;
+		this.questionRepository = questionRepository;
+		this.commentsRepository = commentsRepository;
+	}
+
+	@Override
+	public List<TopicModel> saveTopicDetails(TopicModel user) {
+		if (getTopicId(user.getTopicNumber(), user.getUserId()) == 0) {
+			topicRepository.save(user);
+			return getFullTopicForUser(user);
+		}
+		return null;
+	}
+
+	@Override
+	public boolean saveQuestions(TopicModel user) throws QnaException {
+		try {
+			List<QuestionModel> questions = user.getQuestions();
+			int topicId = getTopicId(user.getTopicNumber(), user.getUserId());
+			if (topicId != 0) {
+				for (QuestionModel question : questions) {
+					question.setTopicId(topicId);
+				}
+				questionRepository.save(questions);
+				return true;
+			}
+			return false;
+		} catch (Exception e) {
+			throw new QnaException(e.getMessage());
+		}
+	}
+
+	@Override
+	public List<TopicModel> saveComments(TopicModel user) throws QnaException {
+		try {
+			int questionId = getQuestionId(user);
+			QuestionModel question = getQuestion(user, questionId);
+			List<CommentsModel> comments = question.getComments();
+			if (!comments.isEmpty()) {
+				for (CommentsModel comment : comments) {
+					comment.setQuestionId(questionId);
+				}
+				commentsRepository.save(comments);
+				return getFullTopicForUser(user);
+			} else {
+				throw new QnaException("No Comments Found");
+			}
+		} catch (Exception e) {
+			throw new QnaException(e.getMessage());
+		}
+	}
+
+	@Override
+	public List<QuestionModel> getQuestions(TopicModel user) throws QnaException {
+		try {
+			List<QuestionModel> questions = questionRepository.findAll();
+			int topicId = getTopicIdFromTopicNumberAndUserId(user.getUserId(), user.getTopicId());
+			List<QuestionModel> matchingQuestions = new ArrayList<>();
+			if (questions != null) {
+				questions.forEach(question -> {
+					if (question.getTopicId() == topicId) {
+						matchingQuestions.add(question);
+					}
+				});
+			} else {
+				throw new QnaException("No Questions Found");
+			}
+			return matchingQuestions;
+		} catch (Exception e) {
+			throw new QnaException(e.getMessage());
+		}
+	}
+
+	@Override
+	public List<CommentsModel> getComments(TopicModel user) throws QnaException {
+		List<CommentsModel> comments = commentsRepository.findAll();
+		List<CommentsModel> matchingComments = new ArrayList<>();
+		comments.forEach(comment -> {
+			if (comment.getQuestionId() == getQuestionId(user)) {
+				matchingComments.add(comment);
+			}
+		});
+		return matchingComments;
+	}
+
+	private List<TopicModel> getFullTopicForUser(TopicModel user) {
+		return topicRepository.findByUserId(user.getUserId());
+	}
+
+	private int getTopicId(int topicNumber, int userId) {
+		List<TopicModel> topics = getAllTopic();
+		if (!topics.isEmpty()) {
+			for (TopicModel topic : topics) {
+				if (topic.getTopicNumber() == topicNumber && topic.getUserId() == userId) {
+					return topic.getTopicId();
+				}
+			}
+		}
+		return 0;
+	}
+
+	private QuestionModel getQuestion(TopicModel user, int questionId) {
+		for (QuestionModel question : user.getQuestions()) {
+			if (question.getQuestionId() == questionId) {
+				return question;
+			}
+		}
+		return null;
+	}
+
+	private int getQuestionId(TopicModel user) {
+		for (QuestionModel question : user.getQuestions()) {
+			if (question.getQuestionId() != 0) {
+				return question.getQuestionId();
+			}
+		}
+		return 0;
+	}
+
+	private int getTopicIdFromTopicNumberAndUserId(int userId, int topicId) {
+		List<QuestionModel> questions = questionRepository.findAll();
+		questions.forEach(question -> {
+
+		});
+		return 0;
+	}
+
+	private List<TopicModel> getAllTopic() {
+		return topicRepository.findAll();
+	}
+
+	@Override
+	public boolean deleteComment(int id) throws QnaException {
+		commentsRepository.delete(id);
+		return true;
+	}
+
+	@Override
+	public boolean deleteQuestion(int id) throws QnaException {
+		questionRepository.delete(id);
+		return true;
+	}
+}

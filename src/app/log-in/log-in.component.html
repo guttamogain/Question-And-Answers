@@ -1,0 +1,44 @@
+<!-- <div class="container col-md-6 col-md-offset-6">
+  <app-confirmation></app-confirmation>
+  <div class="container card border-dark">
+    <h3 class="text-center">LOG IN</h3>
+    <div class="form-group">
+      <label class="float-left">Email</label>
+      <input type="text" class="form-control" name="email" [(ngModel)]="email" required />
+      <div [hidden]="!isEmailMissing" class="help-block text-danger float-left">Email is required</div>
+      <div [hidden]="isEmailValid" class="help-block text-danger float-left">Email is invalid</div>
+    </div>
+    <div class="form-group">
+      <label class="float-left">Password</label>
+      <input type="password" class="form-control" name="password" [(ngModel)]="password" required />
+      <div [hidden]="!isPasswordMissing" class="help-block text-danger float-left">Password is required</div>
+    </div>
+    <div class="form-group">
+      <button id="log-in-button" class="btn btn-primary float-left" (click)="validate(email,password)">LOG IN</button>
+      <a [routerLink]="['/register']" class="btn btn-link float-left">Register</a>
+    </div>
+  </div>
+</div> -->
+
+<div class="container col-md-6 col-md-offset-6">
+  <div class="container card border-dark"><br>
+    <h3 class="text-center">LOG IN</h3>
+    <hr>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label class="float-left">Email</label>
+        <input formControlName="email" class="form-control">
+        <div *ngIf="f.email.errors?.required && formSubmitted" class="help-block text-danger float-left">Email is
+          required</div>
+        <div *ngIf="(f.email.errors?.email && !f.email.errors?.required) && formSubmitted" class="help-block text-danger float-left">Email
+          is invalid</div><br>
+        <label class="float-left">Password</label>
+        <input type="password" formControlName="password" [(ngModel)]="confirmPassword" class="form-control">
+        <div *ngIf="f.password.errors?.required && formSubmitted" class="help-block text-danger float-left">Password is
+          required</div><br>
+        <button type="submit" class="btn btn-primary float-left">LOG IN</button>
+        <a [routerLink]="['/register']" class="btn btn-link float-left">Register</a><br>
+      </div>
+    </form>
+  </div>
+</div>

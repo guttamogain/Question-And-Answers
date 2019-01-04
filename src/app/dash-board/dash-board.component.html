@@ -1,0 +1,11 @@
+<div class="card-columns">
+  <div class="card border-dark" *ngFor="let topic of qna">
+    <img class="card-img-top" src="../../assets/images/{{topic.topic}}.jpg" alt="{{topic.topic}}" style="width: 100%; height: 50%;">
+    <div class="card-body">
+      <h5 class="card-title">{{topic.topic}}</h5>
+      <p class="card-text">Post all your {{topic.topic}} Related questions and give a comment for each question.</p>
+      <button class="btn btn-primary" (click)="viewTopicDetails(topic)">View Topic Details</button>
+    </div>
+  </div>
+</div>
+<button class="btn btn-danger" (click)="onLogOut()">Log Out</button>

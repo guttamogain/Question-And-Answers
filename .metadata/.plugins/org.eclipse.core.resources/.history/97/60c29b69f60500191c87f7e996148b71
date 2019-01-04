@@ -1,0 +1,53 @@
+package com.stackroute.qnatest.service;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
+import com.stackroute.qna.model.TopicModel;
+import com.stackroute.qna.repository.CommentsRepository;
+import com.stackroute.qna.repository.QuestionRepository;
+import com.stackroute.qna.repository.TopicRepository;
+import com.stackroute.qna.services.QnaServiceImpl;
+
+
+public class QnaServiceTest {
+	
+	private TopicModel topic;
+	
+	@Mock
+	private CommentsRepository commentsRepository;
+	
+	@Mock
+	private TopicRepository topicRepository;
+	
+	@Mock
+	private QuestionRepository questionRepository;
+	
+	@InjectMocks
+	private QnaServiceImpl qnaServiceImpl;
+
+	@Before
+	public void setUp() {
+		MockitoAnnotations.initMocks(this);
+		topic = new TopicModel(0, "Jhon123",2,1);
+	}
+	
+	@Test
+	public void saveTopicDetails() {
+		List<TopicModel> value = new ArrayList<>();
+		value.add(topic);
+		when(topicRepository.findAll()).thenReturn(value);
+		List<TopicModel> topics= qnaServiceImpl.saveTopicDetails(topic);
+		assertNotNull(topics);
+	}
+}

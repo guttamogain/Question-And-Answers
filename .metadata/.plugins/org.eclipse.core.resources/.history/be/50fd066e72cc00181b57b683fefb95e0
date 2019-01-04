@@ -1,0 +1,9 @@
+package com.stackroute.qna;
+
+@SpringBootApplication
+public class QnAApp {
+	
+	public static void main(String[] args) {
+		SpringApplication.run(QnAApp.class, args);
+	}
+}

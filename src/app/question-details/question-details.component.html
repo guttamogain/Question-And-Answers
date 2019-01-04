@@ -1,0 +1,29 @@
+<div class="row">
+  <nav>
+    <button class="btn btn-link" style="COLOR:BLACK" (click)="navigateToQuestions()">Back to Questions</button>
+    <button class="btn btn-danger" (click)="onLogOut()">Log Out</button>
+  </nav>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="form-group">
+      <label for="comment" class="float-left">
+        <h4>Post your Comments here:</h4>
+      </label>
+      <textarea class="form-control" rows="2" id="comment" #commentBox></textarea>
+      <button class="btn btn-success btn-md float-right" (click)="onCommentButtonClick(commentBox.value);commentBox.value=''">Post</button>
+    </div>
+  </div>
+</div>
+<hr>
+<h3>COMMENTS</h3>
+<br>
+<div class="card-columns" *ngIf="isCommentsAvailable();else notFound">
+  <div class="card border-dark" *ngFor="let comment of comments">
+    <div class="card-body">
+      <h5 class="card-title">{{comment.comment}}</h5>
+      <button class="btn btn-danger" (click)="deleteComment(comment)">Delete</button>
+    </div>
+  </div>
+</div>
+<ng-template #notFound>No Comments Posted yet... Post a Comment to continue...</ng-template>

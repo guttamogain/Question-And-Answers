@@ -1,0 +1,5 @@
+package com.stackroute.qnatest.repository;
+
+public class CommentsRepositoryTest {
+
+}

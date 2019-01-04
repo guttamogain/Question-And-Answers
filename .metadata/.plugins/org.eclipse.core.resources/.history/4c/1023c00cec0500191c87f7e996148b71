@@ -1,0 +1,43 @@
+package com.stackroute.qnatest.controller;
+
+import org.junit.Before;
+import org.junit.runner.RunWith;
+import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.stackroute.qna.controller.QnaController;
+import com.stackroute.qna.model.TopicModel;
+
+@RunWith(SpringRunner.class)
+@WebMvcTest(QnaController.class)
+@ContextConfiguration(classes = { QnaController.class })
+public class QnaControllerTest {
+	
+	private TopicModel topic;
+	
+	private static String jsonToString(final Object obj) throws JsonProcessingException {
+		String result;
+		try {
+			final ObjectMapper mapper = new ObjectMapper();
+			final String jsonContent = mapper.writeValueAsString(obj);
+			result = jsonContent;
+		} catch (JsonProcessingException e) {
+			result = "Json processing error";
+		}
+		return result;
+	}
+	
+	@Before
+	public void setUp() {
+		MockitoAnnotations.initMocks(this);
+		topic = new TopicModel(1,"Science",1,1);
+	}
+	
+	public void saveTopicTest() {
+		
+	}
+}
